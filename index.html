@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5"/>
+<title>Planete Optique — Opticien à Rabat</title>
+<meta name="description" content="Planete Optique, votre opticien de confiance à Rabat avec plus de 20 ans d'expérience. Lunettes de vue, solaires et accessoires optiques."/>
+<meta name="keywords" content="opticien rabat, lunettes de vue, lunettes solaires, eyewear, opticien expérience"/>
+<meta property="og:title" content="Planete Optique — Opticien à Rabat"/>
+<meta property="og:description" content="Votre opticien de confiance à Rabat. Plus de 20 ans d'expérience."/>
+<meta property="og:type" content="website"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231760AA' width='100' height='100'/><text x='50' y='70' font-size='60' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'>PN</text></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ─── DESIGN TOKENS ───────────────────────────────────────── */
+:root{
+  --navy:    #06172E;
+  --navy2:   #0C2748;
+  --blue:    #1760AA;
+  --sky:     #3B9EF0;
+  --ice:     #EBF4FF;
+  --frost:   #F4F8FE;
+  --white:   #FFFFFF;
+  --text:    #0F1C2E;
+  --muted:   #5F7387;
+  --border:  #CBE0F5;
+  --sans:    "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --ease:    cubic-bezier(0.25,0.46,0.45,0.94);
+  --ease-o:  cubic-bezier(0.16,1,0.3,1);
+  --r-sm:    8px;
+  --r-md:    14px;
+  --r-lg:    20px;
+}
+/* ─── RESET ───────────────────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{overflow-x:hidden;scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;}
+body{
+  background:var(--white);color:var(--text);
+  font-family:var(--sans);font-weight:400;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font-family:var(--sans);}
+
+/* ─── PROGRESS ────────────────────────────────────────────── */
+#pb{
+  position:fixed;top:0;left:0;height:2px;
+  background:linear-gradient(to right,var(--blue),var(--sky));
+  width:0%;z-index:9999;transition:width .12s linear;
+  border-radius:0 1px 1px 0;
+}
+
+/* ─── PRELOADER ───────────────────────────────────────────── */
+#pl{
+  position:fixed;inset:0;z-index:9998;
+  background:var(--navy);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+  transition:opacity .7s var(--ease),visibility .7s;
+}
+#pl.gone{opacity:0;visibility:hidden;pointer-events:none;}
+.pl-logo{
+  font-size:2.1rem;font-weight:800;letter-spacing:-0.03em;
+  color:var(--white);display:flex;align-items:center;gap:.3rem;
+}
+.pl-logo span{color:var(--sky);}
+.pl-bar{width:200px;height:2px;background:rgba(255,255,255,.08);border-radius:1px;overflow:hidden;}
+.pl-fill{height:100%;width:0;background:linear-gradient(to right,var(--blue),var(--sky));border-radius:1px;animation:plFill 2s var(--ease-o) .2s forwards;}
+.pl-pct{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3);opacity:0;animation:fadeIn .4s ease .5s forwards;font-weight:500;}
+@keyframes plFill{to{width:100%;}}
+@keyframes fadeIn{to{opacity:1;}}
+@keyframes fup{to{opacity:1;transform:translateY(0);}}
+@keyframes sup{to{opacity:1;transform:translateY(0);}}
+
+/* ─── CUSTOM CURSOR (desktop only) ───────────────────────── */
+@media(pointer:fine){
+  body{cursor:none;}
+  #cd,#cr{position:fixed;border-radius:50%;pointer-events:none;z-index:9997;top:0;left:0;}
+  #cd{width:5px;height:5px;background:var(--blue);transform:translate(-50%,-50%);transition:transform .1s;}
+  #cr{
+    width:32px;height:32px;
+    border:1.5px solid rgba(23,96,170,.35);
+    transform:translate(-50%,-50%);
+    transition:width .3s var(--ease),height .3s var(--ease),border-color .3s,background .25s;
+  }
+  #cr.h{width:56px;height:56px;border-color:var(--sky);background:rgba(59,158,240,.07);}
+}
+@media(pointer:coarse){#cd,#cr{display:none;}}
+
+/* ─── MOBILE MENU ─────────────────────────────────────────── */
+#mmenu{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(6,23,46,.97);
+  backdrop-filter:blur(28px) saturate(180%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.8rem;
+  transform:translateX(100%);transition:transform .65s var(--ease);
+}
+#mmenu.open{transform:translateX(0);}
+.mlink{
+  font-size:clamp(1.8rem,6vw,2.8rem);font-weight:700;
+  color:var(--white);letter-spacing:-0.02em;
+  opacity:0;transform:translateX(28px);
+  transition:color .3s,opacity .4s var(--ease-o),transform .4s var(--ease-o);
+  padding:.4rem 0;
+}
+#mmenu.open .mlink{opacity:1;transform:translateX(0);}
+#mmenu.open .mlink:nth-child(1){transition-delay:.06s}
+#mmenu.open .mlink:nth-child(2){transition-delay:.11s}
+#mmenu.open .mlink:nth-child(3){transition-delay:.16s}
+#mmenu.open .mlink:nth-child(4){transition-delay:.21s}
+.mlink:hover{color:var(--sky);}
+.mwa{
+  display:inline-flex;align-items:center;gap:.7rem;
+  margin-top:.8rem;padding:1rem 2rem;
+  background:#25d366;border-radius:999px;
+  color:white;font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  min-height:48px;
+  opacity:0;transform:translateY(12px);
+  transition:opacity .4s var(--ease-o) .28s,transform .4s var(--ease-o) .28s,background .3s;
+}
+#mmenu.open .mwa{opacity:1;transform:translateY(0);}
+.mwa:hover{background:#1fb35a;}
+.mmeta{
+  position:absolute;bottom:2.5rem;
+  font-size:.55rem;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);font-weight:500;
+  opacity:0;transition:opacity .4s .35s;
+}
+#mmenu.open .mmeta{opacity:1;}
+.mclose{
+  position:absolute;top:1.5rem;right:1.5rem;
+  background:none;border:none;cursor:pointer;
+  padding:.5rem;
+  display:flex;align-items:center;justify-content:center;
+  color:white;
+  opacity:0;transition:opacity .4s .28s,color .3s;
+}
+#mmenu.open .mclose{opacity:1;}
+.mclose:hover{color:var(--sky);}
+.mclose:active{transform:scale(0.95);}
+
+/* ─── NAV ─────────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.8rem 5rem;
+  transition:background .4s,padding .35s,box-shadow .4s;
+}
+nav.sc{
+  background:rgba(255,255,255,.93);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  padding:1rem 5rem;
+  box-shadow:0 1px 0 var(--border),0 4px 24px rgba(6,23,46,.06);
+}
+.logo{
+  font-size:1.45rem;font-weight:800;letter-spacing:-0.03em;
+  color:var(--white);position:relative;z-index:210;
+  transition:color .3s;display:flex;align-items:center;
+}
+.lo-acc{color:var(--sky);transition:color .3s;}
+nav.sc .logo{color:var(--navy);}
+nav.sc .lo-acc{color:var(--blue);}
+.nlinks{display:flex;gap:2.8rem;list-style:none;}
+.nlinks a{
+  font-size:.72rem;letter-spacing:.04em;font-weight:600;
+  color:rgba(255,255,255,.72);
+  transition:color .3s;position:relative;
+}
+.nlinks a::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;
+  height:1.5px;background:var(--sky);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s var(--ease);
+}
+.nlinks a:hover{color:white;}
+.nlinks a:hover::after{transform:scaleX(1);}
+nav.sc .nlinks a{color:var(--muted);}
+nav.sc .nlinks a:hover{color:var(--blue);}
+nav.sc .nlinks a::after{background:var(--blue);}
+.nright{display:flex;align-items:center;gap:1.5rem;}
+
+/* ─── BUTTONS ─────────────────────────────────────────────── */
+.btn-p{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.78rem 1.9rem;border-radius:999px;
+  background:var(--blue);color:var(--white);
+  font-size:.7rem;letter-spacing:.06em;font-weight:700;text-transform:uppercase;
+  border:none;cursor:pointer;min-height:44px;
+  transition:background .3s,transform .25s,box-shadow .3s;
+  box-shadow:0 2px 16px rgba(23,96,170,.3);
+  text-decoration:none;white-space:nowrap;
+}
+.btn-p:hover{background:var(--sky);transform:translateY(-2px);box-shadow:0 6px 24px rgba(59,158,240,.4);}
+.btn-p:active{transform:translateY(0);}
+
+.btn-o{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:.75rem 1.8rem;border-radius:999px;
+  background:transparent;color:var(--white);
+  font-size:.7rem;letter-spacing:.06em;font-weight:700;text-transform:uppercase;
+  border:1.5px solid rgba(255,255,255,.38);cursor:pointer;min-height:44px;
+  transition:all .3s;text-decoration:none;white-space:nowrap;
+}
+.btn-o:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.65);}
+
+/* hamburger */
+.hmbg{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  cursor:pointer;background:none;border:none;
+  padding:10px;z-index:210;position:relative;
+  min-width:44px;min-height:44px;align-items:center;
+}
+.hmbg span{display:block;width:24px;height:1.5px;background:var(--white);transform-origin:center;transition:transform .35s var(--ease),opacity .25s,width .25s;}
+nav.sc .hmbg span{background:var(--navy);}
+.hmbg.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hmbg.open span:nth-child(2){opacity:0;width:0;}
+.hmbg.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+/* ─── HERO ────────────────────────────────────────────────── */
+.hero{
+  position:relative;height:100vh;min-height:620px;
+  display:flex;align-items:flex-end;overflow:hidden;
+  background:var(--navy);
+}
+#shader-canvas{
+  position:absolute;inset:0;width:100%;height:100%;z-index:0;
+  transform:scale(1.05);will-change:transform;
+}
+.hero-ov{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(180deg,rgba(6,23,46,.2) 0%,rgba(6,23,46,0) 30%,rgba(6,23,46,.92) 100%),
+    linear-gradient(90deg,rgba(6,23,46,.8) 0%,rgba(6,23,46,0) 55%);
+}
+
+/* ── Signature: lens rings ── */
+.lens-rings{
+  position:absolute;
+  right:6%;top:50%;transform:translateY(-50%);
+  z-index:1;pointer-events:none;
+}
+.lr{
+  position:absolute;border-radius:50%;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+}
+.lr1{width:120px;height:120px;border:1.5px solid rgba(59,158,240,.5);animation:lp 4s ease-in-out infinite;}
+.lr2{width:220px;height:220px;border:1px solid rgba(59,158,240,.28);animation:lp 4s ease-in-out .5s infinite;}
+.lr3{width:340px;height:340px;border:1px solid rgba(59,158,240,.16);animation:lp 4s ease-in-out 1s infinite;}
+.lr4{width:480px;height:480px;border:1px solid rgba(59,158,240,.09);animation:lp 4s ease-in-out 1.5s infinite;}
+.lr5{width:640px;height:640px;border:1px solid rgba(59,158,240,.05);animation:lp 4s ease-in-out 2s infinite;}
+.lr-dot{
+  width:16px;height:16px;border-radius:50%;
+  background:var(--sky);opacity:.55;
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  animation:lp 3s ease-in-out infinite;
+  box-shadow:0 0 20px rgba(59,158,240,.6);
+}
+@keyframes lp{
+  0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1);}
+  50%{opacity:1;transform:translate(-50%,-50%) scale(1.02);}
+}
+
+.hero-c{
+  position:relative;z-index:2;
+  padding:0 5rem 7rem;max-width:880px;
+}
+.hero-eye{
+  font-size:.6rem;letter-spacing:.34em;text-transform:uppercase;color:var(--sky);
+  margin-bottom:1.8rem;display:flex;align-items:center;gap:1.2rem;font-weight:600;
+  opacity:0;transform:translateY(16px);animation:fup .9s 2.2s var(--ease-o) forwards;
+}
+.hero-eye::before{content:'';width:32px;height:1.5px;background:var(--sky);}
+.hero-h1{font-weight:800;line-height:.95;margin-bottom:1.6rem;letter-spacing:-0.045em;}
+.hero-h1 .ln{display:block;overflow:hidden;}
+.hero-h1 .ln span{
+  display:block;font-size:clamp(4rem,10.5vw,10rem);color:var(--white);
+  opacity:0;transform:translateY(105%);
+}
+.hero-h1 .ln:nth-child(1) span{animation:sup 1.1s 2.3s var(--ease-o) forwards;}
+.hero-h1 .ln:nth-child(2) span{animation:sup 1.1s 2.48s var(--ease-o) forwards;color:var(--sky);}
+.hero-sub{
+  font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.48);margin-bottom:2.5rem;font-weight:400;
+  opacity:0;transform:translateY(14px);animation:fup .9s 2.85s var(--ease-o) forwards;
+}
+.hero-btns{
+  display:flex;gap:1rem;align-items:center;flex-wrap:wrap;
+  opacity:0;animation:fup .9s 3.05s var(--ease-o) forwards;
+}
+.hero-scroll{
+  position:absolute;bottom:2.8rem;right:5rem;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:.8rem;
+  opacity:0;animation:fup .9s 3.4s var(--ease-o) forwards;
+}
+.sline{width:1px;height:55px;background:linear-gradient(to bottom,var(--sky),transparent);animation:spulse 2.4s ease-in-out infinite;}
+.hero-scroll span{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.28);writing-mode:vertical-rl;font-weight:600;}
+@keyframes spulse{0%,100%{opacity:.25}50%{opacity:.9}}
+
+/* ─── TRUST BANNER ────────────────────────────────────────── */
+.trust{
+  background:var(--white);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:1rem 5rem;
+  display:flex;align-items:center;justify-content:center;gap:3.5rem;flex-wrap:wrap;
+  position:relative;z-index:2;
+}
+.ti{
+  display:flex;align-items:center;gap:.55rem;
+  font-size:.63rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--text);
+  white-space:nowrap;
+}
+.ti svg{width:15px;height:15px;fill:var(--blue);flex-shrink:0;}
+
+/* ─── MARQUEE ─────────────────────────────────────────────── */
+.mstrip{
+  overflow:hidden;background:var(--ice);
+  border-bottom:1px solid var(--border);
+  padding:.85rem 0;position:relative;z-index:2;
+}
+.mtrack{display:flex;gap:4rem;white-space:nowrap;animation:mq 32s linear infinite;}
+.mtrack:hover{animation-play-state:paused;}
+.mitem{
+  font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--blue);display:flex;align-items:center;gap:1.8rem;flex-shrink:0;font-weight:700;
+}
+.mitem::after{content:"◆";font-size:.32rem;color:var(--sky);}
+@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ─── SECTION LABELS ──────────────────────────────────────── */
+.slbl{
+  font-size:.58rem;letter-spacing:.36em;text-transform:uppercase;color:var(--blue);
+  margin-bottom:1.1rem;display:flex;align-items:center;gap:1.1rem;font-weight:700;
+}
+.slbl::before{content:'';width:28px;height:2px;background:var(--blue);border-radius:1px;}
+.stitle{
+  font-size:clamp(2.1rem,4.5vw,4rem);font-weight:800;
+  line-height:1.06;margin-bottom:2.2rem;letter-spacing:-0.03em;color:var(--text);
+}
+.stitle em{font-style:normal;color:var(--blue);}
+
+/* ─── CATALOGUE ───────────────────────────────────────────── */
+.catalogue-s{padding:10rem 5rem;background:var(--white);}
+.catalogue-in{max-width:1320px;margin:0 auto;}
+.catalogue-hd{text-align:center;margin-bottom:4rem;}
+.catalogue-hd .slbl{justify-content:center;}
+.catalogue-hd .slbl::before{width:0;}
+.catalogue-hd .slbl::after{content:'';width:28px;height:2px;background:var(--blue);border-radius:1px;}
+
+/* ── FILTER TABS ── */
+.cat-filters{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:.6rem;margin-bottom:3rem;
+}
+.cat-btn{
+  padding:.55rem 1.4rem;border-radius:999px;
+  border:1.5px solid var(--border);
+  background:transparent;
+  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--navy);cursor:pointer;
+  transition:background .25s,border-color .25s,color .25s,transform .2s;
+}
+.cat-btn:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px);}
+.cat-btn.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+.c-item.hidden{display:none;}
+/* ── END FILTER TABS ── */
+.catalogue-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;
+}
+.c-item{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;
+  background:var(--frost);border:1.5px solid var(--border);
+  transition:transform .4s var(--ease),box-shadow .4s,border-color .35s;
+  cursor:pointer;
+}
+.c-item:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(6,23,46,.14);border-color:rgba(23,96,170,.25);}
+.c-img{
+  width:100%;aspect-ratio:1/1;object-fit:cover;
+  transition:transform .6s var(--ease);
+}
+.c-item:hover .c-img{transform:scale(1.06);}
+.c-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(6,23,46,.82) 0%,rgba(6,23,46,0) 55%);
+  opacity:0;transition:opacity .4s var(--ease);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:1.8rem;
+}
+.c-item:hover .c-overlay{opacity:1;}
+.c-name{
+  font-size:1.15rem;font-weight:700;color:var(--white);letter-spacing:-.01em;
+  transform:translateY(10px);transition:transform .4s var(--ease-o);
+}
+.c-item:hover .c-name{transform:translateY(0);}
+.c-tag{
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sky);font-weight:700;
+  margin-top:.4rem;transform:translateY(10px);transition:transform .4s var(--ease-o) .05s;
+}
+.c-item:hover .c-tag{transform:translateY(0);}
+.c-wa{
+  display:inline-flex;align-items:center;gap:.5rem;
+  margin-top:1rem;padding:.65rem 1.2rem;border-radius:999px;
+  background:#25d366;color:var(--white);font-size:.62rem;letter-spacing:.06em;font-weight:700;text-transform:uppercase;
+  transform:translateY(10px);transition:transform .4s var(--ease-o) .1s,background .3s;
+  border:none;cursor:pointer;text-decoration:none;align-self:flex-start;
+}
+.c-item:hover .c-wa{transform:translateY(0);}
+.c-wa:hover{background:#1fb35a;}
+.c-wa svg{width:14px;height:14px;fill:white;}
+.c-price{
+  font-size:1.35rem;font-weight:800;color:var(--white);letter-spacing:-.02em;
+  margin:.3rem 0 .6rem;text-shadow:0 2px 8px rgba(0,0,0,.3);
+  transform:translateY(10px);transition:transform .4s var(--ease-o) .04s;
+}
+.c-item:hover .c-price{transform:translateY(0);}
+
+@media(max-width:1200px){
+  .catalogue-s{padding:8rem 2.8rem;}
+  .catalogue-grid{grid-template-columns:repeat(2,1fr);gap:1.6rem;}
+}
+@media(max-width:768px){
+  .catalogue-s{padding:5.5rem 1.4rem;}
+  .catalogue-grid{grid-template-columns:1fr 1fr;gap:1.2rem;}
+  .c-overlay{opacity:1;background:linear-gradient(to top,rgba(6,23,46,.7) 0%,rgba(6,23,46,0) 50%);}
+  .c-name,.c-tag,.c-price,.c-wa{transform:translateY(0);}
+}
+@media(max-width:480px){
+  .catalogue-grid{grid-template-columns:1fr;}
+}
+
+/* ─── REVEAL ANIMATIONS ───────────────────────────────────── */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease-o),transform .8s var(--ease-o);}
+.rv.v{opacity:1;transform:translateY(0);}
+.rvr{transform:translateX(38px);}
+.rvr.v{transform:translateX(0);}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.32s}.d4{transition-delay:.44s}
+
+/* ─── ABOUT ───────────────────────────────────────────────── */
+.about-s{padding:10rem 5rem;background:var(--white);}
+.about-in{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center;}
+.about-vis{position:relative;height:580px;}
+.about-frame{
+  position:absolute;top:2rem;left:2rem;right:-2rem;bottom:-2rem;
+  border:1.5px solid var(--border);border-radius:var(--r-lg);
+  pointer-events:none;z-index:0;
+}
+.about-photo{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=900&q=85&fit=crop&auto=format');
+  background-size:cover;background-position:center;
+  border-radius:calc(var(--r-lg) - 2px);
+  clip-path:inset(0 0 100% 0 round calc(var(--r-lg) - 2px));
+  transition:clip-path 1.5s var(--ease-o);
+  z-index:1;
+}
+.about-vis.v .about-photo{clip-path:inset(0 0 0% 0 round calc(var(--r-lg) - 2px));}
+.about-photo::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 45%,rgba(6,23,46,.35));
+  border-radius:inherit;
+}
+.about-badge{
+  position:absolute;bottom:1.8rem;right:-1.2rem;
+  background:var(--blue);color:var(--white);
+  padding:1.2rem 1.6rem;border-radius:var(--r-md);
+  font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700;
+  z-index:3;line-height:2;text-align:center;
+  box-shadow:0 8px 28px rgba(23,96,170,.38);
+}
+.about-txt p{font-size:.88rem;line-height:1.9;color:var(--muted);margin-bottom:1.4rem;max-width:490px;}
+.about-stats{
+  display:flex;gap:2.5rem;margin-top:2.8rem;
+  border-top:1px solid var(--border);padding-top:2.2rem;
+}
+.stn{font-size:2.6rem;font-weight:800;color:var(--blue);line-height:1;display:block;letter-spacing:-0.03em;}
+.stl{font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.4rem;display:block;font-weight:600;}
+.sdiv{width:1px;align-self:stretch;background:var(--border);}
+
+/* ─── SERVICES ────────────────────────────────────────────── */
+.services-s{padding:10rem 5rem;background:var(--frost);}
+.services-hd{max-width:1320px;margin:0 auto 4rem;}
+.services-grid{
+  max-width:1320px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;
+}
+.srv{
+  background:var(--white);border:1.5px solid var(--border);
+  border-radius:var(--r-lg);padding:2.4rem 2rem;
+  transition:transform .35s var(--ease),box-shadow .35s,border-color .3s;
+}
+.srv:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(23,96,170,.1);border-color:rgba(23,96,170,.25);}
+.srv-icon{
+  width:50px;height:50px;border-radius:var(--r-sm);
+  background:var(--ice);display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.5rem;transition:background .3s;
+}
+.srv:hover .srv-icon{background:rgba(23,96,170,.1);}
+.srv-icon svg{width:22px;height:22px;fill:var(--blue);}
+.srv h3{font-size:.96rem;font-weight:700;color:var(--text);margin-bottom:.75rem;letter-spacing:-.01em;}
+.srv p{font-size:.8rem;line-height:1.78;color:var(--muted);}
+
+/* ─── BRANDS ──────────────────────────────────────────────── */
+.brands-s{
+  padding:7.5rem 5rem;background:var(--white);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.brands-in{max-width:1320px;margin:0 auto;text-align:center;}
+.brands-title{
+  font-size:clamp(1.7rem,3vw,2.6rem);font-weight:800;
+  color:var(--text);letter-spacing:-0.03em;margin-bottom:.7rem;
+}
+.brands-title span{color:var(--blue);}
+.brands-sub{font-size:.82rem;color:var(--muted);margin-bottom:3.5rem;line-height:1.7;}
+.brands-list{
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
+  gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.bn{
+  font-size:clamp(1.1rem,2vw,1.7rem);font-weight:800;
+  color:var(--text);letter-spacing:-0.02em;
+  padding:2rem 3rem;text-align:center;cursor:default;
+  position:relative;opacity:.5;
+  transition:opacity .3s,color .3s;
+}
+.bn::after{
+  content:'';position:absolute;right:0;top:25%;bottom:25%;
+  width:1px;background:var(--border);
+}
+.bn:last-child::after{display:none;}
+.brands-list:hover .bn{opacity:.25;}
+.brands-list .bn:hover{opacity:1;color:var(--blue);}
+
+/* ─── PHILOSOPHY ──────────────────────────────────────────── */
+.phil-s{
+  padding:8rem 5rem;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
+  position:relative;overflow:hidden;
+}
+.phil-s::before{
+  content:'';position:absolute;
+  width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(59,158,240,.06) 0%,transparent 60%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.phil-in{
+  max-width:760px;margin:0 auto;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:1.8rem;
+}
+.pdiv{width:44px;height:1.5px;background:rgba(59,158,240,.3);}
+.pquote{
+  font-size:clamp(1.25rem,2.4vw,2rem);font-weight:300;
+  color:rgba(255,255,255,.88);line-height:1.6;letter-spacing:-.01em;
+}
+.pquote strong{font-weight:700;color:var(--sky);font-style:normal;}
+.pauth{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.3);font-weight:600;}
+
+/* ─── CONTACT ─────────────────────────────────────────────── */
+.contact-s{padding:10rem 5rem;background:var(--frost);}
+.contact-in{
+  max-width:1320px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:start;
+}
+.contact-info h2{font-size:clamp(2rem,3.5vw,3.4rem);font-weight:800;line-height:1.06;margin-bottom:1.8rem;letter-spacing:-.03em;}
+.contact-info h2 em{color:var(--blue);font-style:normal;}
+.contact-info>p{font-size:.86rem;line-height:1.9;color:var(--muted);margin-bottom:2.8rem;max-width:420px;}
+.cdet{display:flex;flex-direction:column;}
+.ci2{display:flex;gap:1.6rem;align-items:flex-start;padding:1.3rem 0;border-bottom:1px solid var(--border);}
+.ci2:last-child{border-bottom:none;}
+.cilbl{font-size:.54rem;letter-spacing:.24em;text-transform:uppercase;color:var(--blue);flex-shrink:0;width:72px;padding-top:.15rem;font-weight:700;}
+.cival{font-size:.85rem;line-height:1.8;color:var(--text);opacity:.8;}
+.cival a{color:var(--blue);transition:opacity .3s;}
+.cival a:hover{opacity:.75;}
+.maps-btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  margin-top:1.5rem;padding:.8rem 1.6rem;
+  border:1.5px solid var(--border);border-radius:999px;
+  font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;
+  color:var(--blue);transition:all .3s;min-height:44px;
+}
+.maps-btn:hover{background:var(--ice);border-color:var(--blue);}
+.maps-btn svg{width:14px;height:14px;fill:var(--blue);}
+
+/* contact form */
+.cf2{display:flex;flex-direction:column;gap:1.3rem;}
+.cfrow{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;}
+.fg2{display:flex;flex-direction:column;gap:.5rem;}
+.fl2{font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.fi2,.fta2{
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);
+  color:var(--text);font-family:var(--sans);font-size:.88rem;
+  padding:.85rem 1rem;outline:none;width:100%;
+  transition:border-color .3s,box-shadow .3s;min-height:44px;
+}
+.fi2:focus,.fta2:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(23,96,170,.1);
+}
+.fi2::placeholder,.fta2::placeholder{color:rgba(95,115,135,.38);}
+.fta2{height:112px;resize:none;min-height:auto;}
+.fs2{
+  padding:1rem 2.4rem;background:var(--blue);color:var(--white);
+  border:none;border-radius:999px;
+  font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;
+  cursor:pointer;align-self:flex-start;min-height:48px;
+  transition:background .3s,transform .25s,box-shadow .3s;
+  box-shadow:0 4px 18px rgba(23,96,170,.28);
+}
+.fs2:hover{background:var(--sky);transform:translateY(-2px);box-shadow:0 8px 26px rgba(59,158,240,.4);}
+
+/* ─── FOOTER ──────────────────────────────────────────────── */
+footer{
+  position:relative;z-index:2;
+  background:var(--navy);
+  padding:5rem 5rem 2.5rem;
+}
+.ft-top{
+  max-width:1320px;margin:0 auto;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:5rem;
+  margin-bottom:4rem;padding-bottom:4rem;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.ft-logo{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;color:var(--white);display:block;margin-bottom:.85rem;}
+.ft-logo span{color:var(--sky);}
+.ft-desc{font-size:.77rem;line-height:1.85;color:rgba(255,255,255,.32);max-width:260px;margin-bottom:1.8rem;}
+.ft-soc{display:flex;gap:1.2rem;flex-wrap:wrap;}
+.ft-soc a{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.32);transition:color .3s;font-weight:600;}
+.ft-soc a:hover{color:var(--sky);}
+.ft-col h4{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--sky);margin-bottom:1.7rem;font-weight:700;}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:.85rem;}
+.ft-col ul a{font-size:.78rem;color:rgba(255,255,255,.36);transition:color .3s;}
+.ft-col ul a:hover{color:var(--white);}
+.ft-col address{font-style:normal;font-size:.78rem;line-height:2.1;color:rgba(255,255,255,.32);}
+.ft-bot{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+.ft-copy{font-size:.58rem;letter-spacing:.07em;color:rgba(255,255,255,.18);font-weight:500;}
+.ft-tag{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.1);letter-spacing:-.01em;}
+
+/* ─── WHATSAPP FLOAT ──────────────────────────────────────── */
+.wa{
+  position:fixed;bottom:1.8rem;right:1.8rem;
+  width:52px;height:52px;background:#25d366;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;z-index:300;
+  box-shadow:0 4px 20px rgba(37,211,102,.38);
+  transition:transform .3s var(--ease-o),box-shadow .3s;
+}
+.wa:hover{transform:translateY(-3px) scale(1.07);box-shadow:0 8px 28px rgba(37,211,102,.52);}
+.wa svg{width:26px;height:26px;fill:white;}
+
+/* ─── REDUCED MOTION ──────────────────────────────────────── */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.15ms !important;}
+}
+
+/* ─── RESPONSIVE · 1200px ─────────────────────────────────── */
+@media(max-width:1200px){
+  nav{padding:1.8rem 2.8rem;}
+  nav.sc{padding:1rem 2.8rem;}
+  .nlinks,.ncta{display:none;}
+  .hmbg{display:flex;}
+  .hero-c{padding:0 2.8rem 5.5rem;}
+  .hero-scroll{right:2.8rem;}
+  .about-in,.contact-in{grid-template-columns:1fr;gap:4rem;}
+  .about-vis{height:400px;}
+  .services-grid{grid-template-columns:1fr 1fr;}
+  .ft-top{grid-template-columns:1fr 1fr;gap:3rem;}
+}
+/* ─── RESPONSIVE · 768px ──────────────────────────────────── */
+@media(max-width:768px){
+  nav{padding:1.2rem 1.4rem;}
+  nav.sc{padding:.85rem 1.4rem;}
+  .hero-c{padding:0 1.4rem 4.5rem;}
+  .hero-scroll{display:none;}
+  .lens-rings{right:50%;transform:translate(50%,-50%);opacity:.35;}
+  .lr3,.lr4,.lr5{display:none;}
+  .about-s,.services-s,.phil-s,.contact-s,.brands-s{padding:5.5rem 1.4rem;}
+  .trust{padding:.85rem 1.4rem;gap:1.4rem;}
+  .brands-list{flex-direction:column;gap:0;}
+  .bn::after{bottom:0;top:auto;left:10%;right:10%;width:auto;height:1px;}
+  .bn:last-child::after{display:none;}
+  .bn{padding:1.2rem 2rem;width:100%;}
+  .cfrow{grid-template-columns:1fr;}
+  .ft-top{grid-template-columns:1fr;gap:2.8rem;}
+  .ft-bot{flex-direction:column;gap:1rem;text-align:center;}
+  .hero-btns{gap:.75rem;}
+}
+/* ─── RESPONSIVE · 480px ──────────────────────────────────── */
+@media(max-width:480px){
+  .services-grid{grid-template-columns:1fr;}
+  .about-stats{flex-wrap:wrap;gap:1.5rem;}
+  .sdiv{display:none;}
+  .trust{gap:1rem;}
+  .ti{font-size:.59rem;}
+  .hero-btns{flex-direction:column;align-items:flex-start;width:100%;}
+  .btn-p,.btn-o{width:100%;justify-content:center;}
+  .fs2{align-self:stretch;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── PROGRESS ──────────────────────────────────────────── -->
+<div id="pb"></div>
+
+<!-- ── PRELOADER ─────────────────────────────────────────── -->
+<div id="pl">
+  <div class="pl-logo">Planete<span>Optique</span></div>
+  <div class="pl-bar"><div class="pl-fill"></div></div>
+  <div class="pl-pct" id="plc">0%</div>
+</div>
+
+<!-- ── CURSOR ────────────────────────────────────────────── -->
+<div id="cd"></div>
+<div id="cr"></div>
+
+<!-- ── MOBILE MENU ───────────────────────────────────────── -->
+<div id="mmenu" aria-hidden="true" role="dialog" aria-label="Navigation">
+  <a class="mlink" href="#about"     onclick="closeM()">À Propos</a>
+  <a class="mlink" href="#catalogue" onclick="closeM()">Catalogue</a>
+  <a class="mlink" href="#services"  onclick="closeM()">Services</a>
+  <a class="mlink" href="#brands"    onclick="closeM()">Marques</a>
+  <a class="mlink" href="#contact"   onclick="closeM()">Contact</a>
+  <a class="mwa" href="https://wa.me/212622040675" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="white" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+    </svg>
+    WhatsApp
+  </a>
+  <button class="mclose" onclick="closeM()" aria-label="Fermer le menu">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="white" aria-hidden="true">
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+    </svg>
+  </button>
+  <div class="mmeta">Planete Optique · Rabat</div>
+</div>
+
+<!-- ── NAV ───────────────────────────────────────────────── -->
+<nav id="nav">
+  <a href="#" class="logo">Planete<span class="lo-acc">Optique</span></a>
+  <ul class="nlinks">
+    <li><a href="#about">À Propos</a></li>
+    <li><a href="#catalogue">Catalogue</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#brands">Marques</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nright ncta">
+    <a href="#contact" class="btn-p">Où nous trouver</a>
+  </div>
+  <button class="hmbg" id="hmbg" onclick="toggleM()" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────────────── -->
+<section class="hero" id="hero" aria-label="Planete Optique">
+  <canvas id="shader-canvas" aria-hidden="true"></canvas>
+  <div class="hero-ov" aria-hidden="true"></div>
+
+  <!-- Signature: lens rings -->
+  <div class="lens-rings" aria-hidden="true">
+    <div class="lr lr1"></div>
+    <div class="lr lr2"></div>
+    <div class="lr lr3"></div>
+    <div class="lr lr4"></div>
+    <div class="lr lr5"></div>
+    <div class="lr-dot"></div>
+  </div>
+
+  <div class="hero-c">
+    <p class="hero-eye">Opticien · Rabat</p>
+    <h1 class="hero-h1">
+      <span class="ln"><span>Planete</span></span>
+      <span class="ln"><span>Optique</span></span>
+    </h1>
+    <p class="hero-sub">Lunettes de Vue · Lunettes Solaires · Accessoires</p>
+    <div class="hero-btns">
+      <a href="#contact"  class="btn-p">Où nous trouver</a>
+      <a href="#services" class="btn-o">Nos services</a>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="sline"></div>
+    <span>Défiler</span>
+  </div>
+</section>
+
+<!-- ── TRUST BANNER ──────────────────────────────────────── -->
+<div class="trust" role="list" aria-label="Nos engagements">
+  <span class="ti" role="listitem">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+    Plus de 20 ans d'expérience
+  </span>
+  <span class="ti" role="listitem">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+    Montage express
+  </span>
+  <span class="ti" role="listitem">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+    Marques sélectionnées
+  </span>
+  <span class="ti" role="listitem">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+    Réparation & Entretien
+  </span>
+</div>
+
+<!-- ── MARQUEE ────────────────────────────────────────────── -->
+<div class="mstrip" aria-hidden="true">
+  <div class="mtrack">
+    <span class="mitem">Lunettes de Vue</span>
+    <span class="mitem">Plus de 20 ans d'expérience</span>
+    <span class="mitem">Lunettes de Vue</span>
+    <span class="mitem">Lunettes Solaires</span>
+    <span class="mitem">Accessoires Optiques</span>
+    <span class="mitem">Expertise Professionnelle</span>
+    <span class="mitem">Rabat</span>
+    <span class="mitem">Plus de 20 ans d'expérience</span>
+    <span class="mitem">Lunettes de Vue</span>
+    <span class="mitem">Lunettes Solaires</span>
+    <span class="mitem">Accessoires Optiques</span>
+    <span class="mitem">Expertise Professionnelle</span>
+    <span class="mitem">Rabat</span>
+  </div>
+</div>
+
+<!-- ── À PROPOS ───────────────────────────────────────────── -->
+<section class="about-s" id="about">
+  <div class="about-in">
+    <div class="about-vis rv" id="avis">
+      <div class="about-frame" aria-hidden="true"></div>
+      <div class="about-photo" role="img" aria-label="Boutique Planete Optique"></div>
+      <div class="about-badge">Rabat<br>+20 ans</div>
+    </div>
+    <div class="about-txt">
+      <p class="slbl rv">À Propos</p>
+      <h2 class="stitle rv d1">L'optique <em>professionnelle</em><br>au cœur de Rabat</h2>
+      <p class="rv d2">Planete Optique est votre opticien de confiance à Rabat avec plus de 20 ans d'expérience. Nous vous accueillons dans un espace moderne et chaleureux, pensé pour vous accompagner dans le choix de vos lunettes.</p>
+      <p class="rv d3">Notre équipe qualifiée assure des montages soignés et un suivi personnalisé — avec des marques sélectionnées pour leur qualité, leur style et leur confort.</p>
+      <div class="about-stats rv d4">
+        <div>
+          <span class="stn">+20</span>
+          <span class="stl">Ans d'expérience</span>
+        </div>
+        <div class="sdiv"></div>
+        <div>
+          <span class="stn counter" data-target="100" data-suffix="%">100%</span>
+          <span class="stl">Satisfaction</span>
+        </div>
+        <div class="sdiv"></div>
+        <div>
+          <span class="stn counter" data-target="24" data-suffix="h">24h</span>
+          <span class="stl">Montage express</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CATALOGUE ──────────────────────────────────────────── -->
+<section class="catalogue-s" id="catalogue">
+  <div class="catalogue-in">
+    <div class="catalogue-hd">
+      <p class="slbl rv">Nos Produits</p>
+      <h2 class="stitle rv d1">Découvrez notre <em>catalogue</em></h2>
+    </div>
+
+    <!-- Filtres par genre -->
+    <div class="cat-filters" id="cat-filters">
+      <button class="cat-btn active" data-filter="tous">Tous</button>
+      <button class="cat-btn" data-filter="hommes">Hommes</button>
+      <button class="cat-btn" data-filter="femmes">Femmes</button>
+      <button class="cat-btn" data-filter="enfants">Enfants</button>
+    </div>
+
+    <div class="catalogue-grid" id="catalogue-grid" data-sheet-url="">
+      <!-- Static fallback products - replaced dynamically if Google Sheet loads -->
+      <article class="c-item rv d1" data-static>
+        <img src="product1.jpg" alt="Monture Or Élégance" class="c-img" loading="lazy">
+        <div class="c-overlay">
+          <span class="c-name">Monture Or Élégance</span>
+          <span class="c-tag">Lunettes de Vue</span>
+          <span class="c-price">1 200 DH</span>
+          <a href="https://wa.me/212622040675?text=Bonjour,%20je%20suis%20intéressé%20par%20la%20Monture%20Or%20Élégance" class="c-wa" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            Commander
+          </a>
+        </div>
+      </article>
+
+      <article class="c-item rv d2" data-static>
+        <img src="product2.jpg" alt="Solaire Noir Classic" class="c-img" loading="lazy">
+        <div class="c-overlay">
+          <span class="c-name">Solaire Noir Classic</span>
+          <span class="c-tag">Lunettes Solaires</span>
+          <span class="c-price">950 DH</span>
+          <a href="https://wa.me/212622040675?text=Bonjour,%20je%20suis%20intéressé%20par%20la%20Solaire%20Noir%20Classic" class="c-wa" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            Commander
+          </a>
+        </div>
+      </article>
+
+      <article class="c-item rv d3" data-static>
+        <img src="product3.jpg" alt="Titanium Rond Minimaliste" class="c-img" loading="lazy">
+        <div class="c-overlay">
+          <span class="c-name">Titanium Rond</span>
+          <span class="c-tag">Lunettes de Vue</span>
+          <span class="c-price">1 450 DH</span>
+          <a href="https://wa.me/212622040675?text=Bonjour,%20je%20suis%20intéressé%20par%20le%20Titanium%20Rond" class="c-wa" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            Commander
+          </a>
+        </div>
+      </article>
+
+      <article class="c-item rv d1" data-static>
+        <img src="product4.jpg" alt="Cat-Eye Écaille de Tortue" class="c-img" loading="lazy">
+        <div class="c-overlay">
+          <span class="c-name">Cat-Eye Écaille</span>
+          <span class="c-tag">Lunettes Solaires</span>
+          <span class="c-price">1 100 DH</span>
+          <a href="https://wa.me/212622040675?text=Bonjour,%20je%20suis%20intéressé%20par%20la%20Cat-Eye%20Écaille" class="c-wa" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            Commander
+          </a>
+        </div>
+      </article>
+
+      <article class="c-item rv d2" data-static>
+        <img src="product5.jpg" alt="Business Gunmetal" class="c-img" loading="lazy">
+        <div class="c-overlay">
+          <span class="c-name">Business Gunmetal</span>
+          <span class="c-tag">Lunettes de Vue</span>
+          <span class="c-price">1 350 DH</span>
+          <a href="https://wa.me/212622040675?text=Bonjour,%20je%20suis%20intéressé%20par%20le%20Business%20Gunmetal" class="c-wa" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            Commander
+          </a>
+        </div>
+      </article>
+
+      <article class="c-item rv d3" data-static>
+        <img src="product6.jpg" alt="Aviateur Doré Legacy" class="c-img" loading="lazy">
+        <div class="c-overlay">
+          <span class="c-name">Aviateur Doré Legacy</span>
+          <span class="c-tag">Lunettes Solaires</span>
+          <span class="c-price">1 600 DH</span>
+          <a href="https://wa.me/212622040675?text=Bonjour,%20je%20suis%20intéressé%20par%20l'Aviateur%20Doré%20Legacy" class="c-wa" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            Commander
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ───────────────────────────────────────────── -->
+<section class="services-s" id="services">
+  <div class="services-hd">
+    <p class="slbl rv">Services</p>
+    <h2 class="stitle rv d1">Tout pour <em>votre vue</em></h2>
+  </div>
+  <div class="services-grid">
+
+    <article class="srv rv d1">
+      <div class="srv-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 13c-3.04 0-5.5-2.46-5.5-5.5S8.96 6.5 12 6.5s5.5 2.46 5.5 5.5S15.04 17.5 12 17.5zm0-9c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5 3.5-1.57 3.5-3.5-1.57-3.5-3.5-3.5z"/>
+        </svg>
+      </div>
+      <h3>Lunettes de Vue</h3>
+      <p>Un large choix de montures pour tous les visages et tous les styles. Verres unifocaux, progressifs et anti-lumière bleue montés avec soin.</p>
+    </article>
+
+    <article class="srv rv d2">
+      <div class="srv-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0zM7.05 18.36l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0z"/>
+        </svg>
+      </div>
+      <h3>Lunettes Solaires</h3>
+      <p>Protection UV 400 et style affirmé. Avec ou sans correction, pour profiter du soleil de Rabat en toute sécurité.</p>
+    </article>
+
+    <article class="srv rv d3">
+      <div class="srv-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M13 2.05v2.02c3.95.49 7 3.85 7 7.93 0 3.21-1.81 6-4.72 7.72L13 17v5h5l-1.22-1.22C19.91 19.07 22 15.76 22 12c0-5.18-3.95-9.45-9-9.95zM11 2.05C5.95 2.55 2 6.82 2 12c0 3.76 2.09 7.07 5.22 8.78L6 22h5V2.05z"/>
+        </svg>
+      </div>
+      <h3>Montage Express</h3>
+      <p>Vos verres montés rapidement et avec soin. Profitez d'un service de montage express en boutique pour ne pas attendre.</p>
+    </article>
+
+    <article class="srv rv d4">
+      <div class="srv-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+        </svg>
+      </div>
+      <h3>Réparation & Entretien</h3>
+      <p>Réglage, ajustement et réparation de vos montures. Votre confort est notre priorité — on prend soin de vos lunettes comme vous en prenez soin.</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ── MARQUES ────────────────────────────────────────────── -->
+<section class="brands-s" id="brands">
+  <div class="brands-in">
+    <p class="slbl rv" style="justify-content:center;">Nos Marques</p>
+    <h3 class="brands-title rv d1">Des montures <span>sélectionnées</span> pour vous</h3>
+    <p class="brands-sub rv d2">Une sélection rigoureuse pour allier style, confort et qualité optique.</p>
+    <div class="brands-list rv d3" role="list">
+      <span class="bn" role="listitem">Robert Lajoie</span>
+      <span class="bn" role="listitem">Smarty</span>
+      <span class="bn" role="listitem">Mexx</span>
+      <span class="bn" role="listitem">Confort</span>
+      <span class="bn" role="listitem">Tendance</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHILOSOPHIE ───────────────────────────────────────── -->
+<section class="phil-s" aria-label="Notre engagement">
+  <div class="phil-in rv">
+    <div class="pdiv" aria-hidden="true"></div>
+    <blockquote class="pquote">
+      « Voir clairement, c'est <strong>vivre pleinement</strong>. Planete Optique vous accompagne à chaque étape de votre santé visuelle. »
+    </blockquote>
+    <div class="pdiv" aria-hidden="true"></div>
+    <p class="pauth">Planete Optique · Rabat</p>
+  </div>
+</section>
+
+<!-- ── CONTACT ────────────────────────────────────────────── -->
+<section class="contact-s" id="contact">
+  <div class="contact-in">
+
+    <div class="contact-info">
+      <p class="slbl rv">Nous Trouver</p>
+      <h2 class="rv d1">Venez nous <em>rendre visite</em></h2>
+      <p class="rv d2">Notre boutique vous accueille dans un cadre agréable et professionnel. Passez directement ou prenez rendez-vous — nous serons ravis de prendre soin de votre vue.</p>
+      <div class="cdet rv d3">
+        <div class="ci2">
+          <span class="cilbl">Adresse</span>
+          <span class="cival">
+            Planete optique, 31 bloc argane<br>
+            Rabat 10200, Maroc
+          </span>
+        </div>
+        <div class="ci2">
+          <span class="cilbl">Téléphone</span>
+          <span class="cival">
+            <a href="tel:+212622040675">+212 6 22 04 06 75</a>
+          </span>
+        </div>
+        <div class="ci2">
+          <span class="cilbl">WhatsApp</span>
+          <span class="cival">
+            <a href="https://wa.me/212622040675" target="_blank" rel="noopener">
+              Écrire sur WhatsApp →
+            </a>
+          </span>
+        </div>
+        <div class="ci2">
+          <span class="cilbl">Horaires</span>
+          <span class="cival">
+            Lun – Sam : 9h15 – 19h15<br>
+            Dimanche : Fermé
+          </span>
+        </div>
+      </div>
+      <!-- Google Maps link provided by the optician -->
+      <a href="https://share.google/kmXQVcudSAfHbsAxn" target="_blank" rel="noopener" class="maps-btn rv d4">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+        Voir sur Google Maps
+      </a>
+    </div>
+
+    <div class="rv rvr d2" style="border-radius:1rem;overflow:hidden;box-shadow:0 8px 40px rgba(6,23,46,.10);border:1.5px solid var(--border);height:100%;min-height:480px;">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12380480.600373888!2d-13.227516984489558!3d40.7493044089173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda76b161c3c8e79%3A0x825734a8c9ec07d0!2sPlanete%20Optique!5e0!3m2!1sfr!2sma!4v1781367534906!5m2!1sfr!2sma"
+        width="100%"
+        height="100%"
+        style="border:0;min-height:480px;display:block;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Planete Optique - 31 Bloc Argane, Rabat">
+      </iframe>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <span class="ft-logo">Planete<span>Optique</span></span>
+      <p class="ft-desc">Votre opticien de confiance à Rabat. Plus de 20 ans d'expérience. Lunettes de vue et solaires.</p>
+      <div class="ft-soc">
+        <a href="https://share.google/kmXQVcudSAfHbsAxn" target="_blank" rel="noopener">Google Maps</a>
+        <a href="https://wa.me/212622040675" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+    <div class="ft-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#about">À Propos</a></li>
+        <li><a href="#catalogue">Catalogue</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#brands">Marques</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Lunettes de Vue</a></li>
+        <li><a href="#services">Lunettes Solaires</a></li>
+        <li><a href="#services">Lentilles Contact</a></li>
+        <li><a href="#services">Contrôle de la Vue</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Contact</h4>
+      <address>
+        Planete optique<br>
+        31 bloc argane<br>
+        Rabat 10200, Maroc<br><br>
+        +212 6 69 97 66 07<br>
+        Lun – Sam : 9h15 – 19h15
+      </address>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <span class="ft-copy">© 2026 Planete Optique · Tous droits réservés</span>
+    <span class="ft-tag">La vision, notre passion</span>
+  </div>
+</footer>
+
+<!-- ── WHATSAPP FLOAT ─────────────────────────────────────── -->
+<a href="https://wa.me/212622040675" class="wa" target="_blank" rel="noopener" aria-label="Nous contacter sur WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- ───────────────────────────────────────────────────────── -->
+<script>
+/* ── PRELOADER ──────────────────────────────────────────── */
+(function(){
+  const el=document.getElementById('plc');
+  if(!el)return;
+  const s=performance.now();
+  (function t(n){
+    const p=Math.min((n-s)/2000,1);
+    el.textContent=Math.round((1-Math.pow(1-p,3))*100)+'%';
+    if(p<1)requestAnimationFrame(t);
+  })(performance.now());
+})();
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('pl').classList.add('gone'),2200);
+});
+
+/* ── PROGRESS BAR ───────────────────────────────────────── */
+addEventListener('scroll',()=>{
+  const m=document.documentElement.scrollHeight-innerHeight;
+  document.getElementById('pb').style.width=(m>0?scrollY/m*100:0)+'%';
+},{passive:true});
+
+/* ── CURSOR ─────────────────────────────────────────────── */
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+if(cd&&cr&&matchMedia('(pointer:fine)').matches){
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    cd.style.left=mx+'px';cd.style.top=my+'px';
+  });
+  (function a(){
+    rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+    cr.style.left=rx+'px';cr.style.top=ry+'px';
+    requestAnimationFrame(a);
+  })();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cr.classList.add('h'));
+    el.addEventListener('mouseleave',()=>cr.classList.remove('h'));
+  });
+}
+
+/* ── NAV ─────────────────────────────────────────────────── */
+const navEl=document.getElementById('nav');
+addEventListener('scroll',()=>navEl.classList.toggle('sc',scrollY>80),{passive:true});
+
+/* ── MOBILE MENU ─────────────────────────────────────────── */
+let mo=false;
+const hmbgEl=document.getElementById('hmbg');
+const mmenuEl=document.getElementById('mmenu');
+function toggleM(){
+  mo=!mo;
+  mmenuEl.classList.toggle('open',mo);
+  mmenuEl.setAttribute('aria-hidden',!mo);
+  hmbgEl.classList.toggle('open',mo);
+  hmbgEl.setAttribute('aria-expanded',mo);
+  document.body.style.overflow=mo?'hidden':'';
+}
+function closeM(){
+  mo=false;
+  mmenuEl.classList.remove('open');
+  mmenuEl.setAttribute('aria-hidden','true');
+  hmbgEl.classList.remove('open');
+  hmbgEl.setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+}
+// close on Escape
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mo)closeM();});
+
+/* ── SCROLL REVEAL ───────────────────────────────────────── */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('v');ro.unobserve(e.target);}
+  });
+},{threshold:.07,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+
+/* ── ABOUT PHOTO REVEAL ──────────────────────────────────── */
+const ao=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('v');ao.unobserve(e.target);}
+  });
+},{threshold:.18});
+const avis=document.getElementById('avis');
+if(avis)ao.observe(avis);
+
+/* ── HERO PARALLAX ───────────────────────────────────────── */
+const shaderEl=document.getElementById('shader-canvas');
+addEventListener('scroll',()=>{
+  if(shaderEl&&scrollY<innerHeight*1.5)
+    shaderEl.style.transform=`scale(1.05) translateY(${scrollY*.28}px)`;
+},{passive:true});
+
+/* ── COUNTERS ────────────────────────────────────────────── */
+(function(){
+  const cs=document.querySelectorAll('.counter');
+  const o=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      const el=e.target,tgt=parseInt(el.dataset.target),sfx=el.dataset.suffix||'',dur=1600,s=performance.now();
+      (function t(n){
+        const p=Math.min((n-s)/dur,1);
+        el.textContent=Math.round((1-Math.pow(1-p,4))*tgt)+sfx;
+        if(p<1)requestAnimationFrame(t);
+        else el.textContent=tgt+sfx;
+      })(performance.now());
+      o.unobserve(el);
+    });
+  },{threshold:.5});
+  cs.forEach(c=>o.observe(c));
+})();
+
+/* ── SMOOTH ANCHORS ──────────────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+
+/* ── FORM SUBMIT (placeholder) ───────────────────────────── */
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.fs2');
+  btn.textContent='Message envoyé ✓';
+  btn.style.background='#16a34a';
+  setTimeout(()=>{btn.textContent='Envoyer le message';btn.style.background='';},3500);
+}
+
+/* ── WEBGL BLUE SHADER ───────────────────────────────────── */
+(function(){
+  const canvas=document.getElementById('shader-canvas');
+  if(!canvas)return;
+
+  const gl=canvas.getContext('webgl2',{alpha:false,antialias:false,powerPreference:'low-power'});
+  if(!gl){
+    canvas.style.background='linear-gradient(135deg,#06172E 0%,#0C2748 60%,#06172E 100%)';
+    return;
+  }
+
+  const vsSrc=`#version 300 es
+precision highp float;
+in vec4 position;
+void main(){gl_Position=position;}`;
+
+  const fsSrc=`#version 300 es
+precision highp float;
+out vec4 O;
+uniform vec2 resolution;
+uniform float time;
+#define FC gl_FragCoord.xy
+#define T time
+#define R resolution
+#define MN min(R.x,R.y)
+
+float rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);}
+float noise(in vec2 p){
+  vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);
+  float a=rnd(i),b=rnd(i+vec2(1,0)),c=rnd(i+vec2(0,1)),d=rnd(i+1.);
+  return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);
+}
+float fbm(vec2 p){float t=.0,a=1.;mat2 m=mat2(1.,-.5,.2,1.2);for(int i=0;i<5;i++){t+=a*noise(p);p*=2.*m;a*=.5;}return t;}
+float clouds(vec2 p){float d=1.,t=.0;for(float i=.0;i<3.;i++){float a=d*fbm(i*10.+p.x*.2+.2*(1.+i)*p.y+d+i*i+p);t=mix(t,d,a);d=a;p*=2./(i+1.);}return t;}
+
+void main(void){
+  vec2 uv=(FC-.5*R)/MN,st=uv*vec2(2.,1.);
+  vec3 col=vec3(0.);
+  float bg=clouds(vec2(st.x+T*.5,-st.y));
+  uv*=1.-.3*(sin(T*.2)*.5+.5);
+  for(float i=1.;i<12.;i++){
+    uv+=.1*cos(i*vec2(.1+.01*i,.8)+i*i+T*.5+.1*uv.x);
+    vec2 p=uv;
+    float d=length(p);
+    float lum=.00125/d*(cos(sin(i))+1.);
+    col.r+=lum*.07;
+    col.g+=lum*.32;
+    col.b+=lum;
+    float b=noise(i+p+bg*1.731);
+    float bl=.002*b/length(max(p,vec2(b*p.x*.02,p.y)));
+    col.r+=bl*.04;
+    col.g+=bl*.18;
+    col.b+=bl*.55;
+    col=mix(col,vec3(bg*.01,bg*.03,bg*.12),d);
+  }
+  col=clamp(col,0.,1.);
+  O=vec4(col,1.);
+}`;
+
+  function compile(type,src){
+    const s=gl.createShader(type);
+    gl.shaderSource(s,src);gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){console.error(gl.getShaderInfoLog(s));gl.deleteShader(s);return null;}
+    return s;
+  }
+  const vs=compile(gl.VERTEX_SHADER,vsSrc);
+  const fs=compile(gl.FRAGMENT_SHADER,fsSrc);
+  if(!vs||!fs)return;
+
+  const prog=gl.createProgram();
+  gl.attachShader(prog,vs);gl.attachShader(prog,fs);gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog,gl.LINK_STATUS)){console.error(gl.getProgramInfoLog(prog));return;}
+
+  const verts=new Float32Array([-1,1,-1,-1,1,1,1,-1]);
+  const buf=gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,verts,gl.STATIC_DRAW);
+
+  const posLoc=gl.getAttribLocation(prog,'position');
+  gl.enableVertexAttribArray(posLoc);
+  gl.vertexAttribPointer(posLoc,2,gl.FLOAT,false,0,0);
+
+  const uRes=gl.getUniformLocation(prog,'resolution');
+  const uTime=gl.getUniformLocation(prog,'time');
+
+  let raf;
+  function resize(){
+    const dpr=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=window.innerWidth*dpr;
+    canvas.height=window.innerHeight*dpr;
+    gl.viewport(0,0,canvas.width,canvas.height);
+  }
+  function frame(now){
+    gl.useProgram(prog);
+    gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.uniform2f(uRes,canvas.width,canvas.height);
+    gl.uniform1f(uTime,now*1e-3);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+    raf=requestAnimationFrame(frame);
+  }
+  // Pause WebGL when tab is hidden (battery/performance)
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden)cancelAnimationFrame(raf);
+    else raf=requestAnimationFrame(frame);
+  });
+
+  resize();
+  window.addEventListener('resize',resize,{passive:true});
+  requestAnimationFrame(frame);
+})();
+
+/* ── GOOGLE SHEETS CATALOG LOADER ────────────────────────── */
+/*
+  HOW TO CONNECT YOUR GOOGLE SHEET:
+  1. Create a Google Sheet with columns: Nom | Categorie | Prix | ImageURL | Message | Genre
+     Genre values: Hommes / Femmes / Enfants  (leave empty = appears in "Tous" only)
+  2. Open Extensions > Apps Script
+  3. Paste the code from google-apps-script.gs (included with this website)
+  4. Deploy as Web App (Execute as: Me, Access: Anyone)
+  5. Copy the deployed URL and paste it below in SHEET_URL
+*/
+(function(){
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbz2-pFDLkS0GTzs-zB2k5D9-SQqat4e-hx7gNfACfAUavRIdfLS8L3UQeIjel8XBIjr/exec';
+  if(!SHEET_URL){ return; }
+
+  const WA_NUMBER = '212622040675';
+  const grid = document.getElementById('catalogue-grid');
+  if(!grid){ return; }
+
+  /* ── FILTER LOGIC ── */
+  const filterBtns = document.querySelectorAll('.cat-btn');
+  let activeFilter = 'tous';
+
+  function applyFilter(filter){
+    activeFilter = filter;
+    filterBtns.forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+    grid.querySelectorAll('.c-item').forEach(item => {
+      const genre = (item.dataset.genre || '').toLowerCase();
+      const show = filter === 'tous' || genre === filter;
+      item.classList.toggle('hidden', !show);
+    });
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+  });
+
+  /* ── SHEET FETCH ── */
+  fetch(SHEET_URL)
+    .then(r => r.json())
+    .then(data => {
+      if(!Array.isArray(data) || data.length === 0){ return; }
+
+      // Remove static fallback items
+      grid.querySelectorAll('[data-static]').forEach(el => el.remove());
+
+      // Build dynamic catalog items — XSS-safe: no innerHTML with user data
+      data.forEach((item, i) => {
+        if(!item.nom){ return; }
+        const delayClass = 'd' + ((i % 3) + 1);
+        const genre = (item.genre || '').toLowerCase().trim(); // Hommes / Femmes / Enfants
+        const article = document.createElement('article');
+        article.className = 'c-item rv ' + delayClass;
+        article.dataset.genre = genre; // used by applyFilter()
+
+        const imgUrl = item.imageURL || ('product' + ((i % 6) + 1) + '.jpg');
+        const prix = item.prix || '';
+        const categorie = item.categorie || 'Lunettes';
+        const message = item.message || ('Bonjour, je suis intéressé par ' + item.nom);
+        const waLink = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(message);
+
+        const img = document.createElement('img');
+        img.setAttribute('src', imgUrl);
+        img.setAttribute('alt', item.nom);
+        img.className = 'c-img';
+        img.loading = 'lazy';
+
+        const overlay = document.createElement('div');
+        overlay.className = 'c-overlay';
+
+        const name = document.createElement('span');
+        name.className = 'c-name';
+        name.textContent = item.nom;
+
+        const tag = document.createElement('span');
+        tag.className = 'c-tag';
+        tag.textContent = categorie;
+
+        const price = document.createElement('span');
+        price.className = 'c-price';
+        price.textContent = prix;
+
+        const link = document.createElement('a');
+        link.setAttribute('href', waLink);
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener');
+        link.className = 'c-wa';
+        link.innerHTML = '<svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>';
+        link.appendChild(document.createTextNode('Commander'));
+
+        overlay.appendChild(name);
+        overlay.appendChild(tag);
+        overlay.appendChild(price);
+        overlay.appendChild(link);
+        article.appendChild(img);
+        article.appendChild(overlay);
+
+        grid.appendChild(article);
+        if(typeof ro !== 'undefined'){ ro.observe(article); }
+      });
+
+      // Re-apply active filter after loading
+      applyFilter(activeFilter);
+    })
+    .catch(() => {
+      /* Google Sheet not connected yet - static content remains visible */
+    });
+})();
+</script>
+</body>
+</html>
