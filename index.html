@@ -383,7 +383,8 @@ nav.sc .hmbg span{background:var(--navy);}
 }
 .c-img{
   position:relative;z-index:2;
-  opacity:0;transition:opacity .4s ease;
+  opacity:0;transition:opacity .4s ease, transform .6s var(--ease);
+  width:100%;aspect-ratio:1/1;object-fit:cover;
 }
 .c-img.loaded{opacity:1;}
 .c-img.loaded + .c-skeleton,
@@ -400,13 +401,9 @@ nav.sc .hmbg span{background:var(--navy);}
   cursor:pointer;
 }
 .c-item:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(6,23,46,.14);border-color:rgba(23,96,170,.25);}
-.c-img{
-  width:100%;aspect-ratio:1/1;object-fit:cover;
-  transition:transform .6s var(--ease);
-}
 .c-item:hover .c-img{transform:scale(1.06);}
 .c-overlay{
-  position:absolute;inset:0;
+  position:absolute;inset:0;z-index:10;
   background:linear-gradient(to top,rgba(6,23,46,.82) 0%,rgba(6,23,46,0) 55%);
   opacity:0;transition:opacity .4s var(--ease);
   display:flex;flex-direction:column;justify-content:flex-end;
