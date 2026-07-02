@@ -367,6 +367,28 @@ nav.sc .hmbg span{background:var(--navy);}
 .cat-btn:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px);}
 .cat-btn.active{background:var(--blue);border-color:var(--blue);color:#fff;}
 .c-item.hidden{display:none;}
+
+/* ── SKELETON LOADER ── */
+.c-img-wrap{position:relative;width:100%;height:100%;overflow:hidden;background:#e8edf4;}
+.c-skeleton{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,#e8edf4 25%,#d0d9e8 50%,#e8edf4 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.4s infinite;
+  z-index:1;
+}
+@keyframes shimmer{
+  0%{background-position:200% 0;}
+  100%{background-position:-200% 0;}
+}
+.c-img{
+  position:relative;z-index:2;
+  opacity:0;transition:opacity .4s ease;
+}
+.c-img.loaded{opacity:1;}
+.c-img.loaded + .c-skeleton,
+.c-skeleton.hidden{display:none;}
+/* ── END SKELETON ── */
 /* ── END FILTER TABS ── */
 .catalogue-grid{
   display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;
@@ -874,12 +896,13 @@ footer{
       <button class="cat-btn" data-filter="hommes">Hommes</button>
       <button class="cat-btn" data-filter="femmes">Femmes</button>
       <button class="cat-btn" data-filter="enfants">Enfants</button>
+      <button class="cat-btn" data-filter="unisexe">Unisexe</button>
     </div>
 
     <div class="catalogue-grid" id="catalogue-grid" data-sheet-url="">
       <!-- Static fallback products - replaced dynamically if Google Sheet loads -->
       <article class="c-item rv d1" data-static>
-        <img src="product1.jpg" alt="Monture Or Élégance" class="c-img" loading="lazy">
+        <div class="c-img-wrap"><img src="product1.jpg" alt="Monture Or Élégance" class="c-img" loading="lazy" onload="this.classList.add('loaded')"><div class="c-skeleton"></div></div>
         <div class="c-overlay">
           <span class="c-name">Monture Or Élégance</span>
           <span class="c-tag">Lunettes de Vue</span>
@@ -892,7 +915,7 @@ footer{
       </article>
 
       <article class="c-item rv d2" data-static>
-        <img src="product2.jpg" alt="Solaire Noir Classic" class="c-img" loading="lazy">
+        <div class="c-img-wrap"><img src="product2.jpg" alt="Solaire Noir Classic" class="c-img" loading="lazy" onload="this.classList.add('loaded')"><div class="c-skeleton"></div></div>
         <div class="c-overlay">
           <span class="c-name">Solaire Noir Classic</span>
           <span class="c-tag">Lunettes Solaires</span>
@@ -905,7 +928,7 @@ footer{
       </article>
 
       <article class="c-item rv d3" data-static>
-        <img src="product3.jpg" alt="Titanium Rond Minimaliste" class="c-img" loading="lazy">
+        <div class="c-img-wrap"><img src="product3.jpg" alt="Titanium Rond Minimaliste" class="c-img" loading="lazy" onload="this.classList.add('loaded')"><div class="c-skeleton"></div></div>
         <div class="c-overlay">
           <span class="c-name">Titanium Rond</span>
           <span class="c-tag">Lunettes de Vue</span>
@@ -918,7 +941,7 @@ footer{
       </article>
 
       <article class="c-item rv d1" data-static>
-        <img src="product4.jpg" alt="Cat-Eye Écaille de Tortue" class="c-img" loading="lazy">
+        <div class="c-img-wrap"><img src="product4.jpg" alt="Cat-Eye Écaille de Tortue" class="c-img" loading="lazy" onload="this.classList.add('loaded')"><div class="c-skeleton"></div></div>
         <div class="c-overlay">
           <span class="c-name">Cat-Eye Écaille</span>
           <span class="c-tag">Lunettes Solaires</span>
@@ -931,7 +954,7 @@ footer{
       </article>
 
       <article class="c-item rv d2" data-static>
-        <img src="product5.jpg" alt="Business Gunmetal" class="c-img" loading="lazy">
+        <div class="c-img-wrap"><img src="product5.jpg" alt="Business Gunmetal" class="c-img" loading="lazy" onload="this.classList.add('loaded')"><div class="c-skeleton"></div></div>
         <div class="c-overlay">
           <span class="c-name">Business Gunmetal</span>
           <span class="c-tag">Lunettes de Vue</span>
@@ -944,7 +967,7 @@ footer{
       </article>
 
       <article class="c-item rv d3" data-static>
-        <img src="product6.jpg" alt="Aviateur Doré Legacy" class="c-img" loading="lazy">
+        <div class="c-img-wrap"><img src="product6.jpg" alt="Aviateur Doré Legacy" class="c-img" loading="lazy" onload="this.classList.add('loaded')"><div class="c-skeleton"></div></div>
         <div class="c-overlay">
           <span class="c-name">Aviateur Doré Legacy</span>
           <span class="c-tag">Lunettes Solaires</span>
@@ -1456,11 +1479,21 @@ void main(void){
         const message = item.message || ('Bonjour, je suis intéressé par ' + item.nom);
         const waLink = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(message);
 
+        const wrap = document.createElement('div');
+        wrap.className = 'c-img-wrap';
+
         const img = document.createElement('img');
         img.setAttribute('src', imgUrl);
         img.setAttribute('alt', item.nom);
         img.className = 'c-img';
         img.loading = 'lazy';
+        img.onload = () => img.classList.add('loaded');
+
+        const skeleton = document.createElement('div');
+        skeleton.className = 'c-skeleton';
+
+        wrap.appendChild(img);
+        wrap.appendChild(skeleton);
 
         const overlay = document.createElement('div');
         overlay.className = 'c-overlay';
@@ -1489,7 +1522,7 @@ void main(void){
         overlay.appendChild(tag);
         overlay.appendChild(price);
         overlay.appendChild(link);
-        article.appendChild(img);
+        article.appendChild(wrap);
         article.appendChild(overlay);
 
         grid.appendChild(article);
